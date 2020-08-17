@@ -32,50 +32,106 @@ public class StringMethods {
 
 	// Given Strings s1 and s2, return the longer String
 	public static String longerString(String s1, String s2) {
-		return null;
+		if(s1.length() > s2.length()) {
+			return s1;
+		}
+		else if(s2.length() > s1.length()) {
+			return s2;
+		}
+		else {
+			return null;
+		}
 	}
 
 	
 	// if String s contains the word "underscores", change all of the spaces to underscores
+	String newString;
+	
 	public static String formatSpaces(String s) {
-		return null;
+		if(s.contains("underscores")) {
+			String newString = s.replace(" ", "_");
+			return newString;
+		}
+		else {
+			return s;
+		}
 	}
 
 	
 	// Return the name of the person whose LAST name would appear first if they were in alphabetical order
 	// You cannot assume there are no extra spaces around the name, but you can
 	// assume there is only one space between the first and last name
+	
 	public static String lineLeader(String s1, String s2, String s3) {
-		return null;
+		String[] s1Array = s1.split(" ");
+		String[] s2Array = s2.split(" ");
+		String[] s3Array = s3.split(" ");
+		if(s1Array[1].compareToIgnoreCase(s2Array[1]) <= 0 && s1Array[1].compareToIgnoreCase(s3Array[1]) <= 0) {
+			return s1;
+		}
+		if(s2Array[1].compareToIgnoreCase(s1Array[1]) <= 0 && s2Array[1].compareToIgnoreCase(s3Array[1]) <= 0) {
+			return s2;
+		}
+		if(s3Array[1].compareToIgnoreCase(s1Array[1]) <= 0 && s3Array[1].compareToIgnoreCase(s2Array[1]) <= 0) {
+			return s3;
+		}
+		else {
+			return null;
+		}
 	}
 	
 	
 	// Return the sum of all numerical digits in the String
 	public static int numeralSum(String s) {
-		return 0;
+		int sum = 0;
+		for(int i = 0; i < s.length(); i++) {
+			if(Character.isDigit(s.charAt(i))) {
+				sum = sum + Integer.parseInt("" + s.charAt(i));
+			}
+		}
+		return sum;
 	}
 	
 	
 	// Return the number of times String substring appears in String s
 	public static int substringCount(String s, String substring) {
-		return 0;
+		int sum = 0;
+		for(int i = 0; i < s.length();i++) {
+			while(i + substring.length() < s.length()) {
+				if(s.substring(i,i + substring.length()).equals(substring)) {
+					sum++;
+				}
+			}
+		}
+		return sum;
 	}
 
 	// Call Utitilities.encrypt to encrypt String s
 	public static String encrypt(String s, char key) {
-		return null;
+		String keyS = "" + key;
+		
+		return Utilities.encrypt(s.getBytes(), keyS.getBytes()[0]);
 	}
 
 	// Call Utilities.decrypt to decrypt the cyphertext
 	public static String decrypt(String s, char key) {
-		return null;
+		String keyS = "" + key;
+		return Utilities.decrypt(s, keyS.getBytes()[0]);
 	}
 
 
 	// Return the number of words in String s that end with String substring
 	// You can assume there are no punctuation marks between words
 	public static int wordsEndsWithSubstring(String s, String substring) {
-		return 0;
+		int sum = 0;
+		for(int i = 0; i < s.length();i++) {
+			while(i + substring.length() < s.length()) {
+				if(s.substring(i,i + substring.length()).equals(substring)) {
+					sum++;
+				}
+			}
+		}
+		return sum;
 	}
 	
 
@@ -83,7 +139,14 @@ public class StringMethods {
 	// of String substring and the final occurrence
 	// You can assume that substring will appear at least twice
 	public static int distance(String s, String substring) {
-		return 0;
+		boolean found = false;
+		int sum = 0;
+		for(int i = 0; i < s.length();i++) {
+			if(s.substring(i,i + substring.length()).equals(substring)) {
+				found = true;
+			}
+		}
+		return sum;
 	}
 
 

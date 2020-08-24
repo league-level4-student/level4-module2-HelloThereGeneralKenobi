@@ -39,7 +39,7 @@ public class StringMethods {
 			return s2;
 		}
 		else {
-			return null;
+			return "equal";
 		}
 	}
 
@@ -63,6 +63,9 @@ public class StringMethods {
 	// assume there is only one space between the first and last name
 	
 	public static String lineLeader(String s1, String s2, String s3) {
+		s1 = s1.trim();
+		s2 = s2.trim();
+		s3 = s3.trim();
 		String[] s1Array = s1.split(" ");
 		String[] s2Array = s2.split(" ");
 		String[] s3Array = s3.split(" ");
@@ -97,7 +100,7 @@ public class StringMethods {
 	public static int substringCount(String s, String substring) {
 		int sum = 0;
 		for(int i = 0; i < s.length();i++) {
-			while(i + substring.length() < s.length()) {
+			if(i + substring.length() <= s.length()) {
 				if(s.substring(i,i + substring.length()).equals(substring)) {
 					sum++;
 				}
@@ -125,7 +128,7 @@ public class StringMethods {
 	public static int wordsEndsWithSubstring(String s, String substring) {
 		int sum = 0;
 		for(int i = 0; i < s.length();i++) {
-			while(i + substring.length() < s.length()) {
+			if(i + substring.length() <= s.length()) {
 				if(s.substring(i,i + substring.length()).equals(substring)) {
 					sum++;
 				}
@@ -140,13 +143,24 @@ public class StringMethods {
 	// You can assume that substring will appear at least twice
 	public static int distance(String s, String substring) {
 		boolean found = false;
+		int first = 0;
+		int last = 0;
 		int sum = 0;
 		for(int i = 0; i < s.length();i++) {
-			if(s.substring(i,i + substring.length()).equals(substring)) {
-				found = true;
+			if(i + substring.length() <= s.length()) {
+				if(s.substring(i,i + substring.length()).equals(substring)) {
+					first = i;
+					break;
+				}
 			}
 		}
-		return sum;
+		for(int i = s.length() - substring.length(); i > 0;i--) {
+			if(s.substring(i,i + substring.length()).equals(substring)) {
+				last = i;
+				break;
+			}
+		}
+		return Math.abs(first - last) - substring.length();
 	}
 
 
@@ -154,7 +168,28 @@ public class StringMethods {
 	// palindromes are words or phrases are read the same forward as backward.
 	// HINT: ignore/remove all punctuation and spaces in the String
 	public static boolean palindrome(String s) {
-		return true;
+		
+		s = s.replaceAll(",", " ");
+		s = s.replaceAll(".", " ");
+		s = s.replaceAll(":", " ");
+		s = s.trim();
+		
+		String[] sReverse = new String[s.length()];
+		
+		int counter = 0;
+		
+		for(int i = s.length() - 1; i >= 0;i--) {
+			sReverse[counter] = "" + s.charAt(i);
+			counter++;
+		}
+		
+		System.out.println(sReverse.toString());
+		System.out.println(s);
+		if(sReverse.toString().equalsIgnoreCase(s)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }

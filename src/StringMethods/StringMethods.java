@@ -127,9 +127,11 @@ public class StringMethods {
 	// You can assume there are no punctuation marks between words
 	public static int wordsEndsWithSubstring(String s, String substring) {
 		int sum = 0;
-		for(int i = 0; i < s.length();i++) {
-			if(i + substring.length() <= s.length()) {
-				if(s.substring(i,i + substring.length()).equals(substring)) {
+		String[] words = s.split(" ");
+		
+		for(int i = 0; i < words.length;i++) {
+			if(words[i].length() >= substring.length()) {
+				if(words[i].substring(words[i].length() - substring.length()).equals(substring)) {
 					sum++;
 				}
 			}
@@ -169,23 +171,22 @@ public class StringMethods {
 	// HINT: ignore/remove all punctuation and spaces in the String
 	public static boolean palindrome(String s) {
 		
-		s = s.replaceAll(",", " ");
-		s = s.replaceAll(".", " ");
-		s = s.replaceAll(":", " ");
+		s = s.replaceAll(",", "");
+		s = s.replace('.', ' ');
+		s = s.replaceAll(":", "");
+		s = s.replaceAll(" ", "");
 		s = s.trim();
 		
-		String[] sReverse = new String[s.length()];
 		
-		int counter = 0;
+		String sReverse = "";
 		
 		for(int i = s.length() - 1; i >= 0;i--) {
-			sReverse[counter] = "" + s.charAt(i);
-			counter++;
+			sReverse = sReverse + s.charAt(i);
 		}
 		
-		System.out.println(sReverse.toString());
-		System.out.println(s);
-		if(sReverse.toString().equalsIgnoreCase(s)) {
+		System.out.println("Reverse: " + sReverse);
+		System.out.println("Regular: " + s);
+		if(sReverse.equalsIgnoreCase(s)) {
 			return true;
 		} else {
 			return false;
